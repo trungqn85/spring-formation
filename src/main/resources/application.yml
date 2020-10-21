@@ -1,0 +1,36 @@
+spring.profiles.active: local
+
+spring.datasource:
+  url: jdbc:postgresql://localhost:5432/demodb
+  username: postgres
+  password: root
+  driver-class-name: org.postgresql.Driver
+  hikari:
+    driver-class-name: org.postgresql.Driver
+    maximum-pool-size: 20
+    minimum-idle: 5
+    idle-timeout: 120000
+
+server:
+  port: 8090
+
+spring.jpa:
+  database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+  open-in-view: false
+  show_sql: false
+  generate-ddl: false
+  hibernate:
+    ddl-auto: none
+
+  properties:
+    temp:
+      use_jdbc_metadata_defaults: false
+
+    hibernate.jdbc.lob.non_contextual_creation: true
+    hibernate.default_schema: demodb
+    hibernate.cache.use_second_level_cache: true
+    hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+    hibernate.cache.use_query_cache: true
+    hibernate.generate_statistics: false
+
+spring.flyway.enabled: false
