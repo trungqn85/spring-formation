@@ -8,18 +8,18 @@ import training.springboot.com.demo.model.UserRepository;
 import java.util.Optional;
 
 @Service
-public class FindUsers {
+public class DeleteUser {
 
     private UserRepository userRepository;
 
-    public FindUsers(@Autowired UserRepository userRepository){
+    public DeleteUser(@Autowired UserRepository userRepository){
         this.userRepository = userRepository;
     }
 
-    public User with(Integer userId){
-        Optional<User> user = this.userRepository.findById(userId);
+    public void with(Integer id){
+        Optional<User> user = this.userRepository.findById(id);
         if(!user.isPresent())
-            throw new IllegalArgumentException("Cannot find the user with id" + userId);
-        return user.get();
+            throw new IllegalArgumentException("Cannot find the userId" + id);
+        this.userRepository.delete(user.get());
     }
 }

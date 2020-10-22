@@ -1,17 +1,30 @@
 package training.springboot.com.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "user")
-public class User {
+@EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class User implements Serializable { // implement Serializable for JSON conversion
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -24,13 +37,14 @@ public class User {
 
     private Date lastLogin;
 
+    @LastModifiedDate
     private Date lastUpdate;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @Setter(AccessLevel.NONE)
-    private List<Address> addresses;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SELECT)// should not use SUBSELECT MODE FOR UNLIMITED SIZE TABLE
+    private List<Address> addresses = new ArrayList();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @Setter(AccessLevel.NONE)
-    private List<Wallet>  wallets;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SELECT)// should not use SUBSELECT MODE FOR UNLIMITED SIZE TABLE
+    private List<Wallet>  wallets = new ArrayList();
 }
