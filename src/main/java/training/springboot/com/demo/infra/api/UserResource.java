@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import training.springboot.com.demo.action.DeleteUser;
 import training.springboot.com.demo.action.FindUsers;
 import training.springboot.com.demo.action.SaveOrUpdateUser;
-import training.springboot.com.demo.model.User;
+import training.springboot.com.demo.domain.model.User;
 
 @RestController
 @RequestMapping(value = "/v1/")

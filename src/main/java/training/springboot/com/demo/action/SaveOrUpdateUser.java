@@ -1,10 +1,9 @@
 package training.springboot.com.demo.action;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import training.springboot.com.demo.model.User;
-import training.springboot.com.demo.model.UserRepository;
+import training.springboot.com.demo.domain.model.User;
+import training.springboot.com.demo.domain.UserRepository;
 
 import java.util.Optional;
 

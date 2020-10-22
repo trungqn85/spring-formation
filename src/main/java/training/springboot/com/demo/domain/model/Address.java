@@ -1,4 +1,4 @@
-package training.springboot.com.demo.model;
+package training.springboot.com.demo.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
