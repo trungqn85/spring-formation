@@ -1,10 +1,11 @@
-package training.springboot.com.demo.domain.model;
+package training.springboot.com.demo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -12,20 +13,20 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "address")
-public class Address implements Serializable {
-
+@Table(name = "wallet")
+public class Wallet implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String street;
+    private BigDecimal balance;
 
-    private String country;
+    private String type;
+
+    private String accountId;
 
     @ManyToOne
     @JoinColumn(name = "user_id",nullable = true, referencedColumnName = "id")
     @JsonIgnore
     private User user = null;
-
 }

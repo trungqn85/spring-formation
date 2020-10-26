@@ -2,9 +2,10 @@ package training.springboot.com.demo.action;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import training.springboot.com.demo.domain.model.User;
+import training.springboot.com.demo.domain.User;
 import training.springboot.com.demo.domain.UserRepository;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 @Service
@@ -16,10 +17,17 @@ public class SaveOrUpdateUser {
         this.userRepository = userRepository;
     }
 
-    public User saveWith(User user){
-        return this.userRepository.save(user);
+    public User createWith(User user) throws NoSuchAlgorithmException {
+        return this.userRepository.save(user.withObfuscatedPassword());
     }
 
+    public User withNewPassword(Integer userId, String newPassword) throws IllegalAccessException, NoSuchAlgorithmException {
+        Optional<User> foundUser = userRepository.findById(userId);
+        if(!foundUser.isPresent())
+            throw new IllegalAccessException("Cannot find the user" + userId);
+        foundUser.get().setPassword(newPassword);
+        return this.userRepository.save(foundUser.get().withObfuscatedPassword());
+    }
     public User updateWith(User user) throws IllegalAccessException {
         Optional<User> foundUser = userRepository.findById(user.getId());
         if(!foundUser.isPresent())
