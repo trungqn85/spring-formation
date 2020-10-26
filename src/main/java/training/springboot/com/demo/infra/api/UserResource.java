@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import training.springboot.com.demo.action.DeleteUser;
 import training.springboot.com.demo.action.FindUsers;
 import training.springboot.com.demo.action.SaveOrUpdateUser;
-import training.springboot.com.demo.domain.model.User;
+import training.springboot.com.demo.domain.User;
 
 @RestController
 @RequestMapping(value = "/v1/")
@@ -29,7 +29,7 @@ public class UserResource {
     @ResponseBody
     public ResponseEntity<Object> createAUser(@RequestBody  User user){
         try{
-            return new ResponseEntity(saveOrUpdateUser.saveWith(user), HttpStatus.CREATED);
+            return new ResponseEntity(saveOrUpdateUser.createWith(user), HttpStatus.CREATED);
         }catch (IllegalArgumentException illegalArgumentException){
             return new ResponseEntity<>("Cannot create the user", HttpStatus.BAD_REQUEST);
         }catch (Exception e){

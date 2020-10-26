@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/v1/")
 public class HelloController {
 
-    @RequestMapping(value="/{name}", method= RequestMethod.GET)
+    @RequestMapping(value="/hello/{name}", method= RequestMethod.GET)
     public String index(@PathVariable("name") @NotNull String name ){
         return "Hello World" + name;
     }
